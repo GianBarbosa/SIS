@@ -1,0 +1,27 @@
+{
+  "tabela": "unidades_saude",
+  "colunas": [
+    {"nome": "id", "tipo": "INTEGER PRIMARY KEY AUTOINCREMENT"},
+    {"nome": "nome", "tipo": "TEXT"},
+    {"nome": "cidade", "tipo": "TEXT"},
+    {"nome": "bairro", "tipo": "TEXT"},
+    {"nome": "endereco", "tipo": "TEXT"},
+    {"nome": "tipo", "tipo": "TEXT"},
+    {"nome": "telefone", "tipo": "TEXT"}
+  ],
+  "registros": [
+    {"nome": "UPA Ibura", "cidade": "Recife", "bairro": "Ibura", "endereco": "R. Vale do Itajaí, s/n", "tipo": "Emergência 24h", "telefone": "(81) 3184-4450"},
+    {"nome": "UPA Barra de Jangada", "cidade": "Jaboatão dos Guararapes", "bairro": "Barra de Jangada", "endereco": "R. Cruz Alta, s/n", "tipo": "Emergência 24h", "telefone": "(81) 3184-4550"},
+    {"nome": "UPA Engenho Velho", "cidade": "Jaboatão dos Guararapes", "bairro": "Engenho Velho", "endereco": "Av. Gen. Manoel Rabelo, 5539", "tipo": "Emergência 24h", "telefone": "(81) 3184-4500"},
+    {"nome": "UPA Imbiribeira", "cidade": "Recife", "bairro": "Imbiribeira", "endereco": "Av. Mal. Mascarenhas de Morais, 4223", "tipo": "Emergência 24h", "telefone": "(81) 3184-4328"},
+    {"nome": "USF Jardim Jordão", "cidade": "Jaboatão dos Guararapes", "bairro": "Jardim Jordão", "endereco": "R. Silvestre Agostinho Sáles, s/n", "tipo": "Saúde da Família", "telefone": "(81) 3476-2911"},
+    {"nome": "USF Cajá", "cidade": "Jaboatão dos Guararapes", "bairro": "Jardim Jordão", "endereco": "R. São Bento, 502", "tipo": "Saúde da Família", "telefone": "(81) 99185-1153"},
+    {"nome": "USF Vaquejada", "cidade": "Jaboatão dos Guararapes", "bairro": "Cajueiro Seco", "endereco": "R. Nossa Sra. dos Prazeres, 20", "tipo": "Saúde da Família", "telefone": "(81) 3476-5660"},
+    {"nome": "USF Jardim Coqueiral", "cidade": "Jaboatão dos Guararapes", "bairro": "Cajueiro Seco", "endereco": "R. Central, 410", "tipo": "Saúde da Família", "telefone": "(81) 3378-5777"},
+    {"nome": "USF Jardim Piedade I", "cidade": "Jaboatão dos Guararapes", "bairro": "Piedade", "endereco": "R. Maria do Carmo de Almeida, 439", "tipo": "Saúde da Família", "telefone": "(81) 3476-8515"},
+    {"nome": "USF Jardim Piedade II", "cidade": "Jaboatão dos Guararapes", "bairro": "Piedade", "endereco": "R. das Flôres, s/n", "tipo": "Saúde da Família", "telefone": "(81) 3476-1360"},
+    {"nome": "USF Portal dos Prazeres", "cidade": "Jaboatão dos Guararapes", "bairro": "Prazeres", "endereco": "R. Venturosa, 321", "tipo": "Saúde da Família", "telefone": "(81) 3376-4318"},
+    {"nome": "USF + Jordão Baixo", "cidade": "Recife", "bairro": "Jordão", "endereco": "R. José Martorano, 100", "tipo": "Saúde da Família", "telefone": "(81) 3355-6623"},
+    {"nome": "USF Josué de Castro", "cidade": "Recife", "bairro": "Ibura (UR-03)", "endereco": "Av. Coração de Jesus, 100", "tipo": "Saúde da Família", "telefone": "(81) 3355-6140"}
+  ]
+}

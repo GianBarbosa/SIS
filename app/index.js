@@ -1,4 +1,5 @@
 import { Text, View } from 'react-native';
+import { unidadesService } from '../src/services/unidadesService';
 
 export default function IndexRoute() {
   return (
