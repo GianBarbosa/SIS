@@ -33,6 +33,9 @@ export const unidadesRepository ={
   },
   buscarPorBairro: (bairro) => {
     return db.getAllSync('SELECT * FROM unidades WHERE bairro = ?', [bairro]);
+  },
+  buscarPortipo: (tipo) => {
+    return db.getAllSync('SELECT * FROM unidades WHERE tipo = ?', [tipo]);
   }
 };
   
