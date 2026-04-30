@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Protocolo de Triagem Clínica</title>
+    <style>
+        :root {
+            --primary: #2563eb; --primary-dark: #1e40af; --bg: #f8fafc;
+            --card-bg: #ffffff; --text-main: #1e293b; --border: #e2e8f0;
+            --success: #10b981; --warning: #f59e0b; --danger: #ef4444; --emergency: #991b1b;
+        }
+        body { font-family: 'Inter', sans-serif; background-color: var(--bg); display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; }
+        .app-container { width: 100%; max-width: 450px; padding: 20px; }
+        .card { background: var(--card-bg); border-radius: 12px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1); overflow: hidden; }
+        .header { background: linear-gradient(135deg, var(--primary), var(--primary-dark)); padding: 20px; text-align: center; color: white; }
+        .progress-bar { height: 4px; background: rgba(255,255,255,0.2); }
+        #progress-fill { height: 100%; background: white; width: 0%; transition: 0.3s; }
+        .content { padding: 30px; text-align: center; }
+        .question-text { font-size: 1.2rem; font-weight: 600; margin-bottom: 25px; min-height: 50px; }
+        .actions { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+        .btn { padding: 15px; border-radius: 8px; font-weight: bold; cursor: pointer; border: none; }
+        .btn-yes { background: var(--primary); color: white; }
+        .btn-no { background: #f1f5f9; border: 1px solid var(--border); }
+        .result-screen { display: none; padding: 40px 20px; text-align: center; }
+        .status-badge { display: inline-block; padding: 5px 15px; border-radius: 20px; color: white; font-size: 0.8rem; margin-bottom: 10px; }
+        .res-title { font-size: 1.8rem; font-weight: 800; margin: 0; }
+        .EMERGENCIA { color: var(--emergency); }
+        .ALTO { color: var(--danger); }
+        .MODERADO { color: var(--warning); }
+        .BAIXO { color: var(--success); }
+    </style>
+</head>
+<body>
+    <div class="app-container">
+        <div class="card">
+            <div class="header"><h1 id="fase-label" style="margin:0; font-size: 1.1rem;">Iniciando...</h1></div>
+            <div class="progress-bar"><div id="progress-fill"></div></div>
+            
+            <div id="quiz-screen" class="content">
+                <div id="question-text" class="question-text">Carregando perguntas...</div>
+                <div class="actions">
+                    <button class="btn btn-yes" onclick="handleAnswer('S')">SIM</button>
+                    <button class="btn btn-no" onclick="handleAnswer('N')">NÃO</button>
+                </div>
+            </div>
+
+            <div id="result-screen" class="result-screen">
+                <div id="status-badge" class="status-badge">CLASSIFICAÇÃO</div>
+                <div id="res-title" class="res-title">---</div>
+                <p id="res-score" style="color: #64748b;">---</p>
+                <button class="btn btn-no" style="width: 100%" onclick="location.reload()">REINICIAR</button>
+            </div>
+        </div>
+    </div>
+    <script type="module" src="triageService.js"></script>
+</body>
+</html>

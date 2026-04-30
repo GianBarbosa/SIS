@@ -1,179 +1,179 @@
-flowchart TD
+    flowchart TD
 
-%% -------------------------
-%% RED FLAGS
-%% -------------------------
-A[Tem dificuldade grave para respirar?]
-A -->|Sim| ER1[EMERGÊNCIA IMEDIATA]
-A -->|Não| B[Tem dor forte no peito agora?]
+    %% -------------------------
+    %% RED FLAGS
+    %% -------------------------
+    A[Tem dificuldade grave para respirar?]
+    A -->|Sim| ER1[EMERGÊNCIA IMEDIATA]
+    A -->|Não| B[Tem dor forte no peito agora?]
 
-B -->|Sim| ER2[EMERGÊNCIA IMEDIATA]
-B -->|Não| C[Tem fraqueza em um lado do corpo?]
+    B -->|Sim| ER2[EMERGÊNCIA IMEDIATA]
+    B -->|Não| C[Tem fraqueza em um lado do corpo?]
 
-C -->|Sim| ER3[EMERGÊNCIA IMEDIATA]
-C -->|Não| D[Desmaiou ou perdeu consciência?]
+    C -->|Sim| ER3[EMERGÊNCIA IMEDIATA]
+    C -->|Não| D[Desmaiou ou perdeu consciência?]
 
-D -->|Sim| ER4[EMERGÊNCIA IMEDIATA]
-D -->|Não| E[Está confuso ou desorientado?]
+    D -->|Sim| ER4[EMERGÊNCIA IMEDIATA]
+    D -->|Não| E[Está confuso ou desorientado?]
 
-E -->|Sim| ER5[EMERGÊNCIA IMEDIATA]
-E -->|Não| F[Tosse com sangue?]
+    E -->|Sim| ER5[EMERGÊNCIA IMEDIATA]
+    E -->|Não| F[Tosse com sangue?]
 
-F -->|Sim| ER6[EMERGÊNCIA IMEDIATA]
-F -->|Não| G[Sintomas começaram de forma súbita?]
+    F -->|Sim| ER6[EMERGÊNCIA IMEDIATA]
+    F -->|Não| G[Sintomas começaram de forma súbita?]
 
-%% -------------------------
-%% ONSET / SEVERITY
-%% -------------------------
-G -->|Sim| H[Os sintomas estão piorando rapidamente?]
-G -->|Não| I[Tem tosse ou falta de ar?]
+    %% -------------------------
+    %% ONSET / SEVERITY
+    %% -------------------------
+    G -->|Sim| H[Os sintomas estão piorando rapidamente?]
+    G -->|Não| I[Tem tosse ou falta de ar?]
 
-H -->|Sim| HIGH0[ALTO RISCO - URGENTE]
-H -->|Não| I
+    H -->|Sim| HIGH0[ALTO RISCO - URGENTE]
+    H -->|Não| I
 
-%% -------------------------
-%% RESPIRATORY
-%% -------------------------
-I -->|Sim| R1[Falta de ar em repouso?]
-I -->|Não| J[Tem dor no peito?]
+    %% -------------------------
+    %% RESPIRATORY
+    %% -------------------------
+    I -->|Sim| R1[Falta de ar em repouso?]
+    I -->|Não| J[Tem dor no peito?]
 
-R1 -->|Sim| HIGH1[ALTO RISCO RESPIRATÓRIO]
-R1 -->|Não| R2[Tem febre?]
+    R1 -->|Sim| HIGH1[ALTO RISCO RESPIRATÓRIO]
+    R1 -->|Não| R2[Tem febre?]
 
-R2 -->|Sim| R3[Tosse produtiva?]
-R2 -->|Não| R4[Tem chiado no peito?]
+    R2 -->|Sim| R3[Tosse produtiva?]
+    R2 -->|Não| R4[Tem chiado no peito?]
 
-R3 -->|Sim| MOD1[RISCO MODERADO RESPIRATÓRIO]
-R3 -->|Não| R4
+    R3 -->|Sim| MOD1[RISCO MODERADO RESPIRATÓRIO]
+    R3 -->|Não| R4
 
-R4 -->|Sim| R5[Tem histórico de asma ou DPOC?]
-R4 -->|Não| LOW[BAIXO RISCO RESPIRATÓRIO]
+    R4 -->|Sim| R5[Tem histórico de asma ou DPOC?]
+    R4 -->|Não| LOW[BAIXO RISCO RESPIRATÓRIO]
 
-R5 -->|Sim| MOD2[RISCO MODERADO RESPIRATÓRIO]
-R5 -->|Não| LOW
+    R5 -->|Sim| MOD2[RISCO MODERADO RESPIRATÓRIO]
+    R5 -->|Não| LOW
 
-%% -------------------------
-%% CHEST PAIN
-%% -------------------------
-J -->|Sim| C1[Dor em aperto ou pressão?]
-J -->|Não| K[Tem tontura ou fraqueza?]
+    %% -------------------------
+    %% CHEST PAIN
+    %% -------------------------
+    J -->|Sim| C1[Dor em aperto ou pressão?]
+    J -->|Não| K[Tem tontura ou fraqueza?]
 
-C1 -->|Sim| C2[Irradia para braço ou pescoço?]
-C1 -->|Não| C3[Piora ao respirar ou mexer?]
+    C1 -->|Sim| C2[Irradia para braço ou pescoço?]
+    C1 -->|Não| C3[Piora ao respirar ou mexer?]
 
-C2 -->|Sim| HIGH2[ALTO RISCO CARDÍACO]
-C2 -->|Não| MOD3[AVALIAR URGENTE]
+    C2 -->|Sim| HIGH2[ALTO RISCO CARDÍACO]
+    C2 -->|Não| MOD3[AVALIAR URGENTE]
 
-C3 -->|Sim| LOW2[PROVÁVEL DOR MUSCULAR]
-C3 -->|Não| MOD4[INVESTIGAR DOR TORÁCICA]
+    C3 -->|Sim| LOW2[PROVÁVEL DOR MUSCULAR]
+    C3 -->|Não| MOD4[INVESTIGAR DOR TORÁCICA]
 
-%% -------------------------
-%% NEURO
-%% -------------------------
-K -->|Sim| N1[Perdeu a consciência?]
-K -->|Não| L[Tem dor abdominal?]
+    %% -------------------------
+    %% NEURO
+    %% -------------------------
+    K -->|Sim| N1[Perdeu a consciência?]
+    K -->|Não| L[Tem dor abdominal?]
 
-N1 -->|Sim| HIGH3[ALTO RISCO NEUROLÓGICO]
-N1 -->|Não| MOD5[SINTOMAS NEUROLÓGICOS]
+    N1 -->|Sim| HIGH3[ALTO RISCO NEUROLÓGICO]
+    N1 -->|Não| MOD5[SINTOMAS NEUROLÓGICOS]
 
-%% -------------------------
-%% ABDOMINAL
-%% -------------------------
-L -->|Sim| A1[Dor intensa e contínua?]
-L -->|Não| M[Tem algum sintoma?]
+    %% -------------------------
+    %% ABDOMINAL
+    %% -------------------------
+    L -->|Sim| A1[Dor intensa e contínua?]
+    L -->|Não| M[Tem algum sintoma?]
 
-A1 -->|Sim| A2[Tem febre ou vômitos?]
-A1 -->|Não| A3[Tem diarreia?]
+    A1 -->|Sim| A2[Tem febre ou vômitos?]
+    A1 -->|Não| A3[Tem diarreia?]
 
-A2 -->|Sim| HIGH4[ALTO RISCO ABDOMINAL]
-A2 -->|Não| MOD6[DOR ABDOMINAL IMPORTANTE]
+    A2 -->|Sim| HIGH4[ALTO RISCO ABDOMINAL]
+    A2 -->|Não| MOD6[DOR ABDOMINAL IMPORTANTE]
 
-A3 -->|Sim| LOW3[PROVÁVEL GASTROINTESTINAL]
-A3 -->|Não| LOW4[DOR LEVE]
+    A3 -->|Sim| LOW3[PROVÁVEL GASTROINTESTINAL]
+    A3 -->|Não| LOW4[DOR LEVE]
 
-M -->|Não| NONE[Sem sintomas relevantes]
-M -->|Sim| RISK
+    M -->|Não| NONE[Sem sintomas relevantes]
+    M -->|Sim| RISK
 
-LOW --> FINALLOW[Auto monitoramento / sem triagem]
-NONE --> FINALLOW[Auto monitoramento / sem triagem]
+    LOW --> FINALLOW[Auto monitoramento / sem triagem]
+    NONE --> FINALLOW[Auto monitoramento / sem triagem]
 
-%% -------------------------
-%% RISK MODIFIERS
-%% -------------------------
-HIGH0 --> RISK
-HIGH1 --> RISK
-HIGH2 --> RISK
-HIGH3 --> RISK
-HIGH4 --> RISK
-MOD1 --> RISK
-MOD2 --> RISK
-MOD3 --> RISK
-MOD4 --> RISK
-MOD5 --> RISK
-MOD6 --> RISK
-LOW2 --> RISK
-LOW3 --> RISK
-LOW4 --> RISK
+    %% -------------------------
+    %% RISK MODIFIERS
+    %% -------------------------
+    HIGH0 --> RISK
+    HIGH1 --> RISK
+    HIGH2 --> RISK
+    HIGH3 --> RISK
+    HIGH4 --> RISK
+    MOD1 --> RISK
+    MOD2 --> RISK
+    MOD3 --> RISK
+    MOD4 --> RISK
+    MOD5 --> RISK
+    MOD6 --> RISK
+    LOW2 --> RISK
+    LOW3 --> RISK
+    LOW4 --> RISK
 
 
-RISK[Qual a sua idade?]
-RISK -->|> 75| MAIN1[Tem alguma comorbidade?]
-RISK -->|> 60| MAIN1
-RISK -->|< 1 ano| MAIN1
+    RISK[Qual a sua idade?]
+    RISK -->|> 75| MAIN1[Tem alguma comorbidade?]
+    RISK -->|> 60| MAIN1
+    RISK -->|< 1 ano| MAIN1
 
-MAIN1 -->|Sim| COM1[Tem diabetes?]
-MAIN1 -->|Nao| MAIN2[Faz uso de alguma medicacao?]
+    MAIN1 -->|Sim| COM1[Tem diabetes?]
+    MAIN1 -->|Nao| MAIN2[Faz uso de alguma medicacao?]
 
-COM1 -->|Sim| COM2[Tem hipertensao?]
-COM1 -->|Nao| COM2
+    COM1 -->|Sim| COM2[Tem hipertensao?]
+    COM1 -->|Nao| COM2
 
-COM2 -->|Sim| COM3[Tem doenca cardiaca?]
-COM2 -->|Nao| COM3
+    COM2 -->|Sim| COM3[Tem doenca cardiaca?]
+    COM2 -->|Nao| COM3
 
-COM3 -->|Sim| COM4[Tem doenca pulmonar?]
-COM3 -->|Nao| COM4
+    COM3 -->|Sim| COM4[Tem doenca pulmonar?]
+    COM3 -->|Nao| COM4
 
-COM4 -->|Sim| COM5[Tem cancer?]
-COM4 -->|Nao| COM5
+    COM4 -->|Sim| COM5[Tem cancer?]
+    COM4 -->|Nao| COM5
 
-COM5 -->|Sim| COM6[Eh imunossuprimido?]
-COM5 -->|Nao| COM6
+    COM5 -->|Sim| COM6[Eh imunossuprimido?]
+    COM5 -->|Nao| COM6
 
-COM6 -->|Sim| MAIN2
-COM6 -->|Nao| MAIN2
+    COM6 -->|Sim| MAIN2
+    COM6 -->|Nao| MAIN2
 
-MAIN2 -->|Sim| MED1[Usa anticoagulante?]
-MAIN2 -->|Nao| MAIN3[Os sintomas comecaram ha mais de 3 dias?]
+    MAIN2 -->|Sim| MED1[Usa anticoagulante?]
+    MAIN2 -->|Nao| MAIN3[Os sintomas comecaram ha mais de 3 dias?]
 
-MED1 -->|Sim| MED2[Usa insulina?]
-MED1 -->|Nao| MED2
+    MED1 -->|Sim| MED2[Usa insulina?]
+    MED1 -->|Nao| MED2
 
-MED2 -->|Sim| MED3[Usa corticoide cronico?]
-MED2 -->|Nao| MED3
+    MED2 -->|Sim| MED3[Usa corticoide cronico?]
+    MED2 -->|Nao| MED3
 
-MED3 -->|Sim| MED4[Faz quimioterapia?]
-MED3 -->|Nao| MED4
+    MED3 -->|Sim| MED4[Faz quimioterapia?]
+    MED3 -->|Nao| MED4
 
-MED4 -->|Sim| MAIN3
-MED4 -->|Nao| MAIN3
+    MED4 -->|Sim| MAIN3
+    MED4 -->|Nao| MAIN3
 
-MAIN3 -->|Sim| MAIN4[Os sintomas apareceram de forma subita?]
-MAIN3 -->|Nao| MAIN4
+    MAIN3 -->|Sim| MAIN4[Os sintomas apareceram de forma subita?]
+    MAIN3 -->|Nao| MAIN4
 
-MAIN4 -->|Sim| MAIN5[Os sintomas estao piorando progressivamente?]
-MAIN4 -->|Nao| MAIN5
+    MAIN4 -->|Sim| MAIN5[Os sintomas estao piorando progressivamente?]
+    MAIN4 -->|Nao| MAIN5
 
-MAIN5 -->|Sim| FINAL[CALCULAR RISCO]
-MAIN5 -->|Nao| FINAL
+    MAIN5 -->|Sim| FINAL[CALCULAR RISCO]
+    MAIN5 -->|Nao| FINAL
 
-%% -------------------------
-%% STYLES
-%% -------------------------
-classDef high fill:#ffd9d9,stroke:#b30000,stroke-width:2px,color:#111;
-classDef mod fill:#fff2cc,stroke:#b38f00,stroke-width:1.5px,color:#111;
-classDef low fill:#d9f2d9,stroke:#2d862d,stroke-width:1.5px,color:#111;
-classDef neutral fill:#e8ecf3,stroke:#5a6b85,stroke-width:1.2px,color:#111;
+    %% -------------------------
+    %% STYLES
+    %% -------------------------
+    classDef high fill:#ffd9d9,stroke:#b30000,stroke-width:2px,color:#111;
+    classDef mod fill:#fff2cc,stroke:#b38f00,stroke-width:1.5px,color:#111;
+    classDef low fill:#d9f2d9,stroke:#2d862d,stroke-width:1.5px,color:#111;
+    classDef neutral fill:#e8ecf3,stroke:#5a6b85,stroke-width:1.2px,color:#111;
 
-class ER1,ER2,ER3,ER4,ER5,ER6,HIGH0,HIGH1,HIGH2,HIGH3,HIGH4 high;
-class MOD1,MOD2,MOD3,MOD4,MOD5,MOD6 mod;
-class LOW1,LOW2,LOW3,LOW4 low;
+    class ER1,ER2,ER3,ER4,ER5,ER6,HIGH0,HIGH1,HIGH2,HIGH3,HIGH4 high;
+    class MOD1,MOD2,MOD3,MOD4,MOD5,MOD6 mod;
+    class LOW1,LOW2,LOW3,LOW4 low;

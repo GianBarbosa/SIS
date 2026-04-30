@@ -1,0 +1,23 @@
+{
+  "perguntas": [
+    { "txt": "Dificuldade grave para respirar?", "type": "EMG", "pts": 0, "fase": "1" },
+    { "txt": "Dor forte no peito agora?", "type": "EMG", "pts": 0, "fase": "1" },
+    { "txt": "Fraqueza em um lado do corpo?", "type": "EMG", "pts": 0, "fase": "1" },
+    { "txt": "Desmaiou ou perdeu a consciência?", "type": "EMG", "pts": 0, "fase": "1" },
+    { "txt": "Está confuso ou desorientado?", "type": "EMG", "pts": 0, "fase": "1" },
+    { "txt": "Tosse com sangue?", "type": "EMG", "pts": 0, "fase": "1" },
+    { "txt": "Sintomas começaram de forma súbita?", "type": "BASE_HIGH_IF_SUDDEN", "pts": 0, "fase": "2" },
+    { "txt": "Os sintomas estão piorando rapidamente?", "type": "BASE_HIGH", "pts": 0, "fase": "2" },
+    { "txt": "Tem mais de 75 anos?", "type": "SCORE", "pts": 3, "fase": "3" },
+    { "txt": "Tem entre 60 e 75 anos?", "type": "SCORE", "pts": 2, "fase": "3" },
+    { "txt": "É menor de 1 ano?", "type": "SCORE", "pts": 3, "fase": "3" },
+    { "txt": "Tem Diabetes?", "type": "SCORE", "pts": 1, "fase": "3" },
+    { "txt": "Tem Hipertensão?", "type": "SCORE", "pts": 1, "fase": "3" },
+    { "txt": "Tem Doença Cardíaca?", "type": "SCORE", "pts": 2, "fase": "3" },
+    { "txt": "Tem Doença Pulmonar?", "type": "SCORE", "pts": 2, "fase": "3" },
+    { "txt": "Tem Câncer?", "type": "SCORE", "pts": 2, "fase": "3" },
+    { "txt": "É Imunossuprimido?", "type": "SCORE", "pts": 2, "fase": "3" },
+    { "txt": "Usa Anticoagulante?", "type": "SCORE", "pts": 2, "fase": "3" },
+    { "txt": "Sintomas duram há mais de 3 dias?", "type": "SCORE", "pts": 1, "fase": "3" }
+  ]
+}
