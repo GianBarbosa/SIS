@@ -16,6 +16,27 @@ This is an [Expo](https://expo.dev) project created with [`create-expo-app`](htt
    npx expo start
    ```
 
+## Database init and triage seed
+
+This project now uses local SQLite via `expo-sqlite`.
+
+Database creation and seeding happen automatically inside the app runtime, on first access to `src/db.js`.
+
+You can run the app normally:
+
+```bash
+npx expo start
+```
+
+Optional helper commands:
+
+```bash
+npm run db:init
+npm run db:seed
+```
+
+Both commands are informational reminders that initialization happens inside Expo runtime.
+
 In the output, you'll find options to open the app in a
 
 - [development build](https://docs.expo.dev/develop/development-builds/introduction/)
