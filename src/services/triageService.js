@@ -65,7 +65,7 @@ function startPhase3(ageGroup) {
             break;
     }
 
-    if (currentRiskDegree >= 14) {
+    if (currentRiskDegree >= 10) {
         return { riskDegree: 'EMERGENCY' };
     }
     
@@ -91,11 +91,11 @@ function nextNode(phase, currentNode, answer) {
                     ? (currentNode.baseRiskPositive ?? defaultRisk)
                     : (currentNode.baseRiskNegative ?? defaultRisk);
 
-                if (currentRiskDegree === 0) {
-                    return { riskDegree: 'NONE' };
+                if (currentRiskDegree <= 4) {
+                    return { riskDegree: 'LOW' };
                 }
 
-                if (currentRiskDegree >= 14) {
+                if (currentRiskDegree >= 10) {
                     return { riskDegree: 'EMERGENCY' };
                 }
                 return {node: null}
@@ -107,7 +107,7 @@ function nextNode(phase, currentNode, answer) {
                 currentRiskDegree += currentNode.riskDegreeIncrease;
             }
 
-            if (currentRiskDegree >= 14) {
+            if (currentRiskDegree >= 10) {
                 return { riskDegree: 'EMERGENCY' };
             }
 
@@ -117,10 +117,8 @@ function nextNode(phase, currentNode, answer) {
 
             if (nextNodeId === null) {
                 const riskDegree =
-                    currentRiskDegree <= 1 ? 'NONE' :
                     currentRiskDegree <= 4 ? 'LOW' :
                     currentRiskDegree <= 9 ? 'MODERATE' :
-                    currentRiskDegree < 14 ? 'HIGH' :
                     'EMERGENCY'
 
                 return { riskDegree: riskDegree };
