@@ -1,8 +1,8 @@
-import { useEffect, useRef, useState } from 'react';
-import { ActivityIndicator, Text, TouchableOpacity, View, StyleSheet, Pressable } from 'react-native';
-import { useRouter } from 'expo-router';
-import triageService from '../src/services/triageService';
 import { LinearGradient } from 'expo-linear-gradient';
+import { useRouter } from 'expo-router';
+import { useEffect, useRef, useState } from 'react';
+import { ActivityIndicator, Pressable, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import triageService from '../src/services/triageService';
 
 export default function TriageRoute() {
     const router = useRouter();
@@ -10,9 +10,11 @@ export default function TriageRoute() {
     const [showPhase3PreChoice, setShowPhase3PreChoice] = useState(false);
     const [riskDegree, setRiskDegree] = useState(null);
     const [isLoading, setIsLoading] = useState(true);
+    const [questionCounter, setQuestionCounter] = useState(0);
     const phase = useRef(null);
 
     async function start() {
+        setQuestionCounter(0);
         setIsLoading(true);
         try {
             setCurrentNode(await triageService.startPhase1());
@@ -32,6 +34,7 @@ export default function TriageRoute() {
 
         const nextNode = await triageService.nextNode(phase.current, currentNode, answer);
         if (nextNode.node) {
+            setQuestionCounter(prev => prev + 1);
             setCurrentNode(nextNode.node);
         } else if (nextNode.riskDegree) {
             setRiskDegree(nextNode.riskDegree);
@@ -48,6 +51,7 @@ export default function TriageRoute() {
     }
 
     async function handlePhase3PreChoice(ageGroup) {
+        setQuestionCounter(prev => prev + 1);
         setCurrentNode(await triageService.startPhase3(ageGroup));
         setShowPhase3PreChoice(false);
     }

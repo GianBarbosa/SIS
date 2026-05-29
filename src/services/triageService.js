@@ -8,6 +8,9 @@ const triageData = {
     phase3: null
 }
 
+let lastNodeId = null;
+let lastAnswer = null;
+
 let currentRiskDegree = 0
 
 async function getPhase1TriageData() {
@@ -39,6 +42,8 @@ function toNode(phase, nodeId) {
 }
 
 async function startPhase1() {
+    lastNodeId = null;
+    lastAnswer = null;
     getPhase2TriageData();
     getPhase3TriageData();
     await getPhase1TriageData();
@@ -46,11 +51,15 @@ async function startPhase1() {
 }
 
 function startPhase2() {
+    lastNodeId = null;
+    lastAnswer = null;
     currentRiskDegree = 0;
     return triageData.phase2[0];
 }
 
 function startPhase3(ageGroup) {
+    lastNodeId = null;
+    lastAnswer = null;
     switch (ageGroup) {
         case 'baby':
             currentRiskDegree += 3;
@@ -73,6 +82,7 @@ function startPhase3(ageGroup) {
 }
 
 function nextNode(phase, currentNode, answer) {
+    lastNodeId = currentNode.id;
     switch (phase) {
         case 1: {
             const nextNodeId = currentNode.next
@@ -126,6 +136,26 @@ function nextNode(phase, currentNode, answer) {
             return { node : toNode(3, nextNodeId) };
         }
 
+        default:
+            throw new Error('Invalid phase');
+    }
+}
+
+function previousNode(phase) {
+    if (lastNodeId === null) {
+        return null;
+    }
+    switch (phase) {
+        case 1:
+            return toNode(1, lastNodeId);
+        case 2:
+            return toNode(2, lastNodeId);
+        case 3:
+            const lastNode = toNode(3, lastNodeId);
+            if (lastAnswer === 'positive') {
+                currentRiskDegree -= lastNode.riskDegreeIncrease;
+            }
+            return lastNode;
         default:
             throw new Error('Invalid phase');
     }
