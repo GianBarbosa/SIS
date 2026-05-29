@@ -8,6 +8,7 @@
     "android": "expo start --android",
     "ios": "expo start --ios",
     "web": "expo start --web",
+    "web-exposed": "node ./scripts/share-web-ngrok.js",
     "lint": "expo lint"
   },
   "dependencies": {
@@ -38,7 +39,8 @@
     "react-native-safe-area-context": "~5.6.0",
     "react-native-screens": "~4.16.0",
     "react-native-web": "~0.21.0",
-    "react-native-worklets": "0.5.1"
+    "react-native-worklets": "0.5.1",
+    "qrcode-terminal": "^0.12.0"
   },
   "devDependencies": {
     "@types/react": "~19.1.0",
