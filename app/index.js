@@ -11,109 +11,93 @@ import triageData from '../src/data/triageseed.json';
 
 export default function IndexRoute() {
 
-  const [loading, setLoading] =
-    useState(true);
+  const [loading, setLoading] = useState(true);
+  const [perguntas, setPerguntas] = useState([]);
+  const [indice, setIndice] = useState(0);
+  const [score, setScore] = useState(0);
+  const [resultado, setResultado] = useState(null);
 
-  const [perguntas, setPerguntas] =
-    useState([]);
-
-  const [indice, setIndice] =
-    useState(0);
-
-  const [score, setScore] =
-    useState(0);
-
-  const [resultado, setResultado] =
-    useState(null);
+  const [fontSize, setFontSize] = useState(24);
+  const [highContrast, setHighContrast] = useState(false);
+  const [menuAcessibilidade, setMenuAcessibilidade] =
+    useState(false);
 
   useEffect(() => {
 
-    carregarPerguntas();
+    setPerguntas(triageData.perguntas);
+    setLoading(false);
 
   }, []);
 
-  function carregarPerguntas() {
+  function aumentarFonte() {
 
-    try {
+    setFontSize((valor) => {
 
-      setPerguntas(
-        triageData.perguntas
-      );
+      if (valor >= 40) return 40;
 
-    } catch (error) {
+      return valor + 4;
 
-      console.log(
-        'Erro:',
-        error
-      );
+    });
 
-    } finally {
+  }
 
-      setLoading(false);
+  function diminuirFonte() {
 
-    }
+    setFontSize((valor) => {
+
+      if (valor <= 16) return 16;
+
+      return valor - 4;
+
+    });
+
+  }
+
+  function alternarContraste() {
+
+    setHighContrast(!highContrast);
 
   }
 
   function responder(resposta) {
 
-    const pergunta =
-      perguntas[indice];
+    const pergunta = perguntas[indice];
 
-    // Emergência
     if (
       resposta === 'S' &&
       pergunta.type === 'EMG'
     ) {
 
-      setResultado(
-        'EMERGÊNCIA IMEDIATA'
-      );
-
+      setResultado('EMERGÊNCIA IMEDIATA');
       return;
 
     }
 
-    // Soma score
     let novoScore = score;
 
     if (resposta === 'S') {
 
-      novoScore += (
-        pergunta.pts || 0
-      );
+      novoScore += pergunta.pts || 0;
 
       setScore(novoScore);
 
     }
 
-    const proximo =
-      indice + 1;
+    const proximo = indice + 1;
 
-    // Finalizar
-    if (
-      proximo >= perguntas.length
-    ) {
+    if (proximo >= perguntas.length) {
 
       if (novoScore >= 8) {
 
-        setResultado(
-          'ALTO RISCO'
-        );
+        setResultado('ALTO RISCO');
 
-      }
-      else if (novoScore >= 4) {
+      } else if (novoScore >= 4) {
 
-        setResultado(
-          'RISCO MODERADO'
-        );
+        setResultado('RISCO MODERADO');
 
-      }
-      else {
+      } else {
 
-        setResultado(
-          'BAIXO RISCO'
-        );
+        setResultado('BAIXO RISCO');
 
       }
 
@@ -125,7 +109,14 @@ export default function IndexRoute() {
 
   }
 
-  // Loading
+  function reiniciar() {
+
+    setIndice(0);
+    setScore(0);
+    setResultado(null);
+
+  }
+
   if (loading) {
 
     return (
@@ -150,85 +141,7 @@ export default function IndexRoute() {
 
   }
 
-  // Resultado
-if (resultado) {
-
-  return (
-
-    <View
-      style={{
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-        padding: 20
-      }}
-    >
-
-      <Text
-        style={{
-          fontSize: 30,
-          fontWeight: 'bold',
-          marginBottom: 20
-        }}
-      >
-        Resultado
-      </Text>
-
-      <Text
-        style={{
-          fontSize: 24,
-          fontWeight: 'bold',
-          color:
-            resultado.includes('EMERGÊNCIA')
-              ? 'red'
-              : resultado.includes('ALTO')
-              ? 'orange'
-              : 'green'
-        }}
-      >
-        {resultado}
-      </Text>
-
-      <TouchableOpacity
-        onPress={() => {
-
-          setIndice(0);
-          setScore(0);
-          setResultado(null);
-
-        }}
-        style={{
-          marginTop: 30,
-          backgroundColor: '#2196f3',
-          padding: 16,
-          borderRadius: 12,
-          width: '100%'
-        }}
-      >
-
-        <Text
-          style={{
-            color: '#fff',
-            textAlign: 'center',
-            fontSize: 20,
-            fontWeight: 'bold'
-          }}
-        >
-          VOLTAR AO INÍCIO
-        </Text>
-
-      </TouchableOpacity>
-
-    </View>
-
-  );
-
-}
-  // Sem perguntas
-  if (
-    !perguntas ||
-    perguntas.length === 0
-  ) {
+  if (resultado) {
 
     return (
 
@@ -236,13 +149,60 @@ if (resultado) {
         style={{
           flex: 1,
           justifyContent: 'center',
-          alignItems: 'center'
+          alignItems: 'center',
+          padding: 20,
+          backgroundColor:
+            highContrast ? '#000' : '#fff'
         }}
       >
 
-        <Text>
-          Nenhuma pergunta encontrada
+        <Text
+          style={{
+            fontSize: 32,
+            fontWeight: 'bold',
+            color:
+              highContrast ? '#fff' : '#000'
+          }}
+        >
+          Resultado
         </Text>
+
+        <Text
+          style={{
+            marginTop: 20,
+            fontSize: fontSize,
+            fontWeight: 'bold',
+            color:
+              resultado.includes('EMERGÊNCIA')
+                ? 'red'
+                : resultado.includes('ALTO')
+                ? 'orange'
+                : 'green'
+          }}
+        >
+          {resultado}
+        </Text>
+
+        <TouchableOpacity
+          onPress={reiniciar}
+          style={{
+            marginTop: 30,
+            backgroundColor: '#2196f3',
+            padding: 16,
+            borderRadius: 12
+          }}
+        >
+
+          <Text
+            style={{
+              color: '#fff',
+              fontWeight: 'bold'
+            }}
+          >
+            VOLTAR AO INÍCIO
+          </Text>
+
+        </TouchableOpacity>
 
       </View>
 
@@ -250,8 +210,7 @@ if (resultado) {
 
   }
 
-  const perguntaAtual =
-    perguntas[indice];
+  const perguntaAtual = perguntas[indice];
 
   const progresso =
     ((indice + 1) /
@@ -264,27 +223,144 @@ if (resultado) {
         flex: 1,
         padding: 20,
         justifyContent: 'center',
-        backgroundColor: '#fff'
+        backgroundColor:
+          highContrast ? '#000' : '#fff'
       }}
     >
 
-      <Text
+      <TouchableOpacity
+        onPress={() =>
+          setMenuAcessibilidade(
+            !menuAcessibilidade
+          )
+        }
         style={{
-          marginBottom: 10,
-          fontSize: 18
+          position: 'absolute',
+          top: 50,
+          right: 20,
+          backgroundColor: '#1976d2',
+          padding: 12,
+          borderRadius: 30,
+          zIndex: 999
         }}
       >
-        Progresso:
-        {' '}
-        {Math.floor(progresso)}%
+
+        <Text
+          style={{
+            color: '#fff',
+            fontSize: 22
+          }}
+        >
+          ♿
+        </Text>
+
+      </TouchableOpacity>
+
+      {menuAcessibilidade && (
+
+        <View
+          style={{
+            position: 'absolute',
+            top: 110,
+            right: 20,
+            backgroundColor: '#eee',
+            padding: 15,
+            borderRadius: 12,
+            zIndex: 999
+          }}
+        >
+
+          <Text>
+            Fonte
+          </Text>
+
+          <View
+            style={{
+              flexDirection: 'row',
+              marginTop: 10
+            }}
+          >
+
+            <TouchableOpacity
+              onPress={aumentarFonte}
+              style={{
+                backgroundColor: '#1976d2',
+                padding: 10,
+                borderRadius: 8,
+                marginRight: 10
+              }}
+            >
+
+              <Text
+                style={{
+                  color: '#fff'
+                }}
+              >
+                A+
+              </Text>
+
+            </TouchableOpacity>
+
+            <TouchableOpacity
+              onPress={diminuirFonte}
+              style={{
+                backgroundColor: '#1976d2',
+                padding: 10,
+                borderRadius: 8
+              }}
+            >
+
+              <Text
+                style={{
+                  color: '#fff'
+                }}
+              >
+                A-
+              </Text>
+
+            </TouchableOpacity>
+
+          </View>
+
+          <TouchableOpacity
+            onPress={alternarContraste}
+            style={{
+              backgroundColor: '#000',
+              padding: 10,
+              borderRadius: 8,
+              marginTop: 15
+            }}
+          >
+
+            <Text
+              style={{
+                color: '#fff'
+              }}
+            >
+              Contraste
+            </Text>
+
+          </TouchableOpacity>
+
+        </View>
+
+      )}
+
+      <Text
+        style={{
+          color:
+            highContrast ? '#fff' : '#000'
+        }}
+      >
+        Progresso: {Math.floor(progresso)}%
       </Text>
 
       <View
         style={{
           height: 10,
           backgroundColor: '#ddd',
-          borderRadius: 20,
-          marginBottom: 30
+          borderRadius: 10,
+          marginVertical: 20
         }}
       >
 
@@ -293,7 +369,7 @@ if (resultado) {
             width: `${progresso}%`,
             height: 10,
             backgroundColor: '#4caf50',
-            borderRadius: 20
+            borderRadius: 10
           }}
         />
 
@@ -301,10 +377,12 @@ if (resultado) {
 
       <Text
         style={{
-          fontSize: 28,
+          fontSize: fontSize,
           textAlign: 'center',
           fontWeight: 'bold',
-          marginBottom: 40
+          marginBottom: 40,
+          color:
+            highContrast ? '#fff' : '#000'
         }}
       >
         {perguntaAtual.txt}
@@ -359,4 +437,4 @@ if (resultado) {
 
   );
 
-} 
+}

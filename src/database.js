@@ -1,11 +1,8 @@
 import * as SQLite from 'expo-sqlite';
 
-export async function getDB() {
-
-  const db = await SQLite.openDatabaseAsync(
+const db =
+  SQLite.openDatabaseSync(
     'triagem.db'
   );
 
-  return db;
-
-}
+export default db;
