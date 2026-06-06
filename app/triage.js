@@ -3,6 +3,7 @@ import { useRouter } from 'expo-router';
 import { useEffect, useRef, useState } from 'react';
 import { ActivityIndicator, Pressable, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import triageService from '../src/services/triageService';
+import { Image } from 'react-native';
 
 export default function TriageRoute() {
     const router = useRouter();
@@ -67,6 +68,337 @@ export default function TriageRoute() {
             : showPhase3PreChoice
                 ? 'Qual a faixa etária do paciente?'
                 : 'Triagem completa!';
+
+        if (riskDegree === 'EMERGENCY') {
+        return (
+            <LinearGradient
+                colors={['#ffffff', '#EDC1C1']}
+                start={{ x: 0, y: 0 }}
+                end={{ x: 1, y: 1 }}
+                style={styles.emergencyContainer}
+            >
+
+                        <View style={styles.emergencyTopContainer}>
+
+                            <Pressable
+                                onPress={() => router.push('/')}
+                                style={({ pressed }) => ({
+                                    transform: [{ scale: pressed ? 0.95 : 1 }],
+                                })}
+                            >
+
+                        <LinearGradient
+                            colors={['#d3d3d3', '#BABABA']}
+                            start={{ x: 0, y: 0 }}
+                            end={{ x: 1, y: 0 }}
+                            style={styles.cancelButton}
+                        >
+
+                        <View style={styles.cancelTouchable}>
+
+                            <Text style={styles.cancelText}>
+                                Cancelar
+                            </Text>
+
+                            <View style={styles.closeCircle}>
+                                <Text style={styles.closeText}>
+                                    ✕
+                                </Text>
+                            </View>
+
+                        </View>
+
+                        </LinearGradient>
+
+                    </Pressable>
+
+                </View>
+
+                <View style={styles.emergencyContent}>
+
+                    <Image
+                        source={require('../assets/images/alerticon.png')}
+                        style={styles.warningIcon}
+                    />
+
+                    <Text style={styles.emergencyTitle}>
+                        Seus sintomas podem indicar um{"\n"}
+
+                        <Text style={styles.emergencyTitleBold}>
+                            alto nível de risco.
+                        </Text>
+
+                    </Text>
+
+                    <Text style={styles.emergencyDescription}>
+                        Recomendamos procurar atendimento médico imediatamente ou
+
+                        <Text style={styles.emergencyDescriptionBold}>
+                            {" "}dirigir-se à unidade de emergência
+                        </Text>
+
+                        {" "}mais próxima.
+                    </Text>
+
+                    <TouchableOpacity activeOpacity={0.9}>
+
+                        <LinearGradient
+                            colors={['#410808', '#A60808']}
+                            start={{ x: 0, y: 0 }}
+                            end={{ x: 1, y: 0 }}
+                            style={styles.emergencyButton}
+                        >
+
+                            <Text style={styles.emergencyButtonText}>
+                                Buscar emergência próxima
+                            </Text>
+
+                        </LinearGradient>
+
+                    </TouchableOpacity>
+
+                    <TouchableOpacity
+                        onPress={start}
+                        activeOpacity={0.9}
+                    >
+
+                        <Text style={styles.retryText}>
+                            Refazer avaliação
+                        </Text>
+
+                    </TouchableOpacity>
+
+                    <Text style={styles.disclaimer}>
+                        Esta avaliação não substitui atendimento médico profissional.
+                    </Text>
+
+                </View>
+
+            </LinearGradient>
+
+        );
+    }       
+
+            if (riskDegree === 'MODERATE') {
+            return (
+                <LinearGradient
+                    colors={['#ffffff', '#ECEDC1']}
+                    start={{ x: 0, y: 0 }}
+                    end={{ x: 1, y: 1 }}
+                    style={styles.moderateContainer}
+                >
+
+                            <View style={styles.moderateTopContainer}>
+
+                                <Pressable
+                                    onPress={() => router.push('/')}
+                                    style={({ pressed }) => ({
+                                        transform: [{ scale: pressed ? 0.95 : 1 }],
+                                    })}
+                                >
+
+                            <LinearGradient
+                                colors={['#d3d3d3', '#BABABA']}
+                                start={{ x: 0, y: 0 }}
+                                end={{ x: 1, y: 0 }}
+                                style={styles.cancelButton}
+                            >
+
+                            <View style={styles.cancelTouchable}>
+
+                                <Text style={styles.cancelText}>
+                                    Cancelar
+                                </Text>
+
+                                <View style={styles.closeCircle}>
+                                    <Text style={styles.closeText}>
+                                        ✕
+                                    </Text>
+                                </View>
+
+                            </View>
+
+                            </LinearGradient>
+
+                        </Pressable>
+
+                    </View>
+
+                    <View style={styles.moderateContent}>
+
+                        <Image
+                            source={require('../assets/images/alerticon2.png')}
+                            style={styles.warning2Icon}
+                        />
+
+                        <Text style={styles.moderateTitle}>
+                            Seus sintomas indicam um nível {"\n"}
+
+                            <Text style={styles.moderateTitleBold}>
+                                moderado de risco.
+                            </Text>
+
+                        </Text>
+
+                        <Text style={styles.moderateDescription}>
+                            Recomendamos
+
+                            <Text style={styles.moderateDescriptionBold}>
+                                {" "}procurar uma Unidade Básica de Saúde (UBS)
+                            </Text>
+
+                            {" "}para uma avaliação mais detalhada.
+                        </Text>
+
+                        <TouchableOpacity activeOpacity={0.9}>
+
+                            <LinearGradient
+                                colors={['#414108', '#A1A608']}
+                                start={{ x: 0, y: 0 }}
+                                end={{ x: 1, y: 0 }}
+                                style={styles.moderateButton}
+                            >
+
+                                <Text style={styles.moderateButtonText}>
+                                    Buscar unidade próxima
+                                </Text>
+
+                            </LinearGradient>
+
+                        </TouchableOpacity>
+
+                        <TouchableOpacity
+                            onPress={start}
+                            activeOpacity={0.9}
+                        >
+
+                            <Text style={styles.retry2Text}>
+                                Refazer avaliação
+                            </Text>
+
+                        </TouchableOpacity>
+
+                        <Text style={styles.disclaimer2}>
+                            Esta avaliação não substitui atendimento médico profissional.
+                        </Text>
+
+                    </View>
+
+                </LinearGradient>
+
+            );
+        }
+
+            if (riskDegree === 'LOW') {
+            return (
+                <LinearGradient
+                    colors={['#ffffff', '#C5EDC1']}
+                    start={{ x: 0, y: 0 }}
+                    end={{ x: 1, y: 1 }}
+                    style={styles.lowContainer}
+                >
+
+                            <View style={styles.lowTopContainer}>
+
+                                <Pressable
+                                    onPress={() => router.push('/')}
+                                    style={({ pressed }) => ({
+                                        transform: [{ scale: pressed ? 0.95 : 1 }],
+                                    })}
+                                >
+
+                            <LinearGradient
+                                colors={['#d3d3d3', '#BABABA']}
+                                start={{ x: 0, y: 0 }}
+                                end={{ x: 1, y: 0 }}
+                                style={styles.cancelButton}
+                            >
+
+                            <View style={styles.cancelTouchable}>
+
+                                <Text style={styles.cancelText}>
+                                    Cancelar
+                                </Text>
+
+                                <View style={styles.closeCircle}>
+                                    <Text style={styles.closeText}>
+                                        ✕
+                                    </Text>
+                                </View>
+
+                            </View>
+
+                            </LinearGradient>
+
+                        </Pressable>
+
+                    </View>
+
+                    <View style={styles.lowContent}>
+
+                        <Image
+                            source={require('../assets/images/alerticon3.png')}
+                            style={styles.warning3Icon}
+                        />
+
+                        <Text style={styles.lowTitle}>
+                            Seus sintomas indicam um{"\n"}
+
+                            <Text style={styles.lowTitleBold}>
+                                baixo nível de risco no momento.
+                            </Text>
+
+                        </Text>
+
+                        <Text style={styles.lowDescription}>
+
+                            <Text style={styles.lowDescriptionBold}>
+                                Continue acompanhando sua saúde e mantenha cuidados básicos
+                            </Text>
+
+                            {" "}para o seu bem-estar.
+
+                        </Text>
+
+                        <TouchableOpacity activeOpacity={0.9}>
+
+                            <LinearGradient
+                                colors={['#08410A', '#15A608']}
+                                start={{ x: 0, y: 0 }}
+                                end={{ x: 1, y: 0 }}
+                                style={styles.lowButton}
+                            >
+
+                                <Text style={styles.lowButtonText}>
+                                    Ver orientações
+                                </Text>
+
+                            </LinearGradient>
+
+                        </TouchableOpacity>
+
+                        <TouchableOpacity
+                            onPress={start}
+                            activeOpacity={0.9}
+                        >
+
+                            <Text style={styles.retry3Text}>
+                                Refazer avaliação
+                            </Text>
+
+                        </TouchableOpacity>
+
+                        <Text style={styles.disclaimer3}>
+                            Esta avaliação não substitui atendimento médico profissional.
+                        </Text>
+
+                    </View>
+
+                </LinearGradient>
+
+            );
+        }
+
 
     return (
 
@@ -202,77 +534,113 @@ export default function TriageRoute() {
 
                     <View>
 
-                        <TouchableOpacity
-                            style={styles.option}
-                            onPress={() => handlePhase3PreChoice('baby')}
-                            activeOpacity={0.9}
-                        >
+                        <View style={styles.optionWrapper}>
 
-                            <View style={styles.optionBadge}>
-                                <Text style={styles.optionBadgeText}>
-                                    A
-                                </Text>
-                            </View>
+                            <TouchableOpacity
+                                onPress={() => handlePhase3PreChoice('baby')}
+                                activeOpacity={0.9}
+                            >
+                                <LinearGradient
+                                    colors={['#f4f4f4', '#d5d5d5']}
+                                    start={{ x: 0, y: 0 }}
+                                    end={{ x: 1, y: 0 }}
+                                    style={styles.optionGradient}
+                                >
+                                    <View style={styles.option}>
+                                        <View style={styles.optionBadge}>
+                                            <Text style={styles.optionBadgeText}>
+                                                A
+                                            </Text>
+                                        </View>
+                                        <Text style={styles.optionText}>
+                                            Bebê (0-1 anos)
+                                        </Text>
+                                    </View>
+                                </LinearGradient>
+                            </TouchableOpacity>
 
-                            <Text style={styles.optionText}>
-                                Bebê (0-1 anos)
-                            </Text>
+                        </View>
 
-                        </TouchableOpacity>
+                        <View style={styles.optionWrapper}>
 
-                        <TouchableOpacity
-                            style={styles.option}
-                            onPress={() => handlePhase3PreChoice('adult')}
-                            activeOpacity={0.9}
-                        >
+                            <TouchableOpacity
+                                onPress={() => handlePhase3PreChoice('adult')}
+                                activeOpacity={0.9}
+                            >
+                                <LinearGradient
+                                    colors={['#f4f4f4', '#d5d5d5']}
+                                    start={{ x: 0, y: 0 }}
+                                    end={{ x: 1, y: 0 }}
+                                    style={styles.optionGradient}
+                                >
+                                    <View style={styles.option}>
+                                        <View style={styles.optionBadge}>
+                                            <Text style={styles.optionBadgeText}>
+                                                B
+                                            </Text>
+                                        </View>
+                                        <Text style={styles.optionText}>
+                                            Jovem/Adulto (2-59 anos)
+                                        </Text>
+                                    </View>
+                                </LinearGradient>
+                            </TouchableOpacity>
 
-                            <View style={styles.optionBadge}>
-                                <Text style={styles.optionBadgeText}>
-                                    B
-                                </Text>
-                            </View>
+                        </View>
 
-                            <Text style={styles.optionText}>
-                                Jovem/Adulto (2-59 anos)
-                            </Text>
+                        <View style={styles.optionWrapper}>
 
-                        </TouchableOpacity>
+                            <TouchableOpacity
+                                onPress={() => handlePhase3PreChoice('elderly')}
+                                activeOpacity={0.9}
+                            >
+                                <LinearGradient
+                                    colors={['#f4f4f4', '#d5d5d5']}
+                                    start={{ x: 0, y: 0 }}
+                                    end={{ x: 1, y: 0 }}
+                                    style={styles.optionGradient}
+                                >
+                                    <View style={styles.option}>
+                                        <View style={styles.optionBadge}>
+                                            <Text style={styles.optionBadgeText}>
+                                                C
+                                            </Text>
+                                        </View>
+                                        <Text style={styles.optionText}>
+                                            Idoso (60-75 anos)
+                                        </Text>
+                                    </View>
+                                </LinearGradient>
+                            </TouchableOpacity>
 
-                        <TouchableOpacity
-                            style={styles.option}
-                            onPress={() => handlePhase3PreChoice('elderly')}
-                            activeOpacity={0.9}
-                        >
+                        </View>
 
-                            <View style={styles.optionBadge}>
-                                <Text style={styles.optionBadgeText}>
-                                    C
-                                </Text>
-                            </View>
+                        <View style={styles.optionWrapper}>
 
-                            <Text style={styles.optionText}>
-                                Idoso (60-75 anos)
-                            </Text>
+                            <TouchableOpacity
+                                onPress={() => handlePhase3PreChoice('late-elderly')}
+                                activeOpacity={0.9}
+                            >
+                                <LinearGradient
+                                    colors={['#f4f4f4', '#d5d5d5']}
+                                    start={{ x: 0, y: 0 }}
+                                    end={{ x: 1, y: 0 }}
+                                    style={styles.optionGradient}
+                                >
+                                    <View style={styles.option}>
+                                        <View style={styles.optionBadge}>
+                                            <Text style={styles.optionBadgeText}>
+                                                D
+                                            </Text>
+                                        </View>
+                                        <Text style={styles.optionText}>
+                                            Idoso (75+ anos)
+                                        </Text>
+                                    </View>
+                                </LinearGradient>
+                            </TouchableOpacity>
 
-                        </TouchableOpacity>
-
-                        <TouchableOpacity
-                            style={styles.option}
-                            onPress={() => handlePhase3PreChoice('late-elderly')}
-                            activeOpacity={0.9}
-                        >
-
-                            <View style={styles.optionBadge}>
-                                <Text style={styles.optionBadgeText}>
-                                    D
-                                </Text>
-                            </View>
-
-                            <Text style={styles.optionText}>
-                                Idoso (75+ anos)
-                            </Text>
-
-                        </TouchableOpacity>
+                        </View>
 
                     </View>
 
@@ -436,6 +804,233 @@ const styles = StyleSheet.create({
         fontSize: 22,
         textAlign: 'center',
         fontWeight: 'bold',
+    },
+
+
+    emergencyContainer: {
+        flex: 1,
+        paddingTop: 50,
+    },
+
+    emergencyTopContainer: {
+        alignItems: 'flex-end',
+        paddingHorizontal: 30,
+    },
+
+    emergencyContent: {
+        flex: 1,
+        paddingHorizontal: 60,
+    },
+
+    warningIcon: {
+        width: 130,
+        height: 130,
+        alignSelf: 'center',
+        marginTop: 40,
+        marginBottom: 25,
+    },
+
+    emergencyTitle: {
+        color: '#8B1F1F',
+        fontSize: 28,
+        lineHeight: 38,
+        marginBottom: 24,
+        fontFamily: 'Roboto',
+    },
+
+    emergencyTitleBold: {
+        fontWeight: 'bold',
+    },
+
+    emergencyDescription: {
+        color: '#8B1F1F',
+        fontSize: 15.6,
+        lineHeight: 22,
+        marginBottom: 50,
+        fontFamily: 'Roboto',
+    },
+
+    emergencyDescriptionBold: {
+        fontWeight: 'bold',
+    },
+
+    emergencyButton: {
+        height: 56,
+        borderRadius: 10,
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+
+    emergencyButtonText: {
+        color: '#fff',
+        fontSize: 15,
+        fontFamily: 'Roboto',
+    },
+
+    retryText: {
+        textAlign: 'center',
+        marginTop: 22,
+        color: '#8B1F1F',
+        fontSize: 16,
+    },
+
+    disclaimer: {
+        marginTop: 'auto',
+        marginBottom: 50,
+        textAlign: 'center',
+        color: '#8B1F1F',
+        fontSize: 15,
+    },
+
+    
+    moderateContainer: {
+        flex: 1,
+        paddingTop: 50,
+    },
+
+    moderateTopContainer: {
+        alignItems: 'flex-end',
+        paddingHorizontal: 30,
+    },
+
+    moderateContent: {
+        flex: 1,
+        paddingHorizontal: 60,
+    },
+
+    warning2Icon: {
+        width: 100,
+        height: 100,
+        alignSelf: 'center',
+        marginTop: 45,
+        marginBottom: 45,
+    },
+
+    moderateTitle: {
+        color: '#A7942C',
+        fontSize: 28,
+        lineHeight: 38,
+        marginBottom: 24,
+        fontFamily: 'Roboto',
+    },
+
+    moderateTitleBold: {
+        fontWeight: 'bold',
+    },
+
+    moderateDescription: {
+        color: '#A7942C',
+        fontSize: 15.6,
+        lineHeight: 22,
+        marginBottom: 50,
+        fontFamily: 'Roboto',
+    },
+
+    moderateDescriptionBold: {
+        fontWeight: 'bold',
+    },
+
+    moderateButton: {
+        height: 56,
+        borderRadius: 10,
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+
+    moderateButtonText: {
+        color: '#fff',
+        fontSize: 15,
+        fontFamily: 'Roboto',
+    },
+
+    retry2Text: {
+        textAlign: 'center',
+        marginTop: 22,
+        color: '#A7942C',
+        fontSize: 16,
+    },
+
+    disclaimer2: {
+        marginTop: 'auto',
+        marginBottom: 50,
+        textAlign: 'center',
+        color: '#A7942C',
+        fontSize: 15,
+    },
+
+    lowContainer: {
+        flex: 1,
+        paddingTop: 50,
+    },
+
+    lowTopContainer: {
+        alignItems: 'flex-end',
+        paddingHorizontal: 30,
+    },
+
+    lowContent: {
+        flex: 1,
+        paddingHorizontal: 60,
+    },
+
+    warning3Icon: {
+        width: 100,
+        height: 100,
+        alignSelf: 'center',
+        marginTop: 45,
+        marginBottom: 45,
+    },
+
+    lowTitle: {
+        color: '#61A72C',
+        fontSize: 28,
+        lineHeight: 38,
+        marginBottom: 24,
+        fontFamily: 'Roboto',
+    },
+
+    lowTitleBold: {
+        fontWeight: 'bold',
+    },
+
+    lowDescription: {
+        color: '#61A72C',
+        fontSize: 15.6,
+        lineHeight: 22,
+        marginBottom: 50,
+        fontFamily: 'Roboto',
+    },
+
+    lowDescriptionBold: {
+        fontWeight: 'bold',
+    },
+
+    lowButton: {
+        height: 56,
+        borderRadius: 10,
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+
+    lowButtonText: {
+        color: '#fff',
+        fontSize: 15,
+        fontFamily: 'Roboto',
+    },
+
+    retry3Text: {
+        textAlign: 'center',
+        marginTop: 22,
+        color: '#61A72C',
+        fontSize: 16,
+    },
+
+    disclaimer3: {
+        marginTop: 'auto',
+        marginBottom: 50,
+        textAlign: 'center',
+        color: '#61A72C',
+        fontSize: 15,
     },
 
 });
