@@ -13,9 +13,27 @@ let initializationPromise;
 
 async function seedHealthUnits(database) {
     const row = await database.getFirstAsync('SELECT COUNT(*) AS total FROM HealthUnits;');
+    const existingUnits = await database.getAllAsync('SELECT type, addressCity, addressState FROM HealthUnits;');
 
-    if (row?.total > 0) {
+    const allowedTypes = new Set(['PRIMARY_CARE', 'URGENT_CARE']);
+    const allowedCities = new Set(['RECIFE', 'JABOATAO DOS GUARARAPES']);
+
+    const hasOutOfScopeUnits = existingUnits.some(unit => {
+        const normalizedType = (unit.type || '').toUpperCase();
+        const normalizedCity = (unit.addressCity || '').toUpperCase();
+        const normalizedState = (unit.addressState || '').toUpperCase();
+
+        return !allowedTypes.has(normalizedType)
+            || !allowedCities.has(normalizedCity)
+            || normalizedState !== 'PE';
+    });
+
+    if ((row?.total ?? 0) > 0 && !hasOutOfScopeUnits) {
         return;
+    }
+
+    if ((row?.total ?? 0) > 0) {
+        await database.runAsync('DELETE FROM HealthUnits;');
     }
 
     for (const unit of healthUnitSeeds) {

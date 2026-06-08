@@ -1,12 +1,13 @@
-import { Text, TouchableOpacity, View, Image, StyleSheet, Pressable } from 'react-native';
-import { useRouter } from 'expo-router';
 import { LinearGradient } from 'expo-linear-gradient';
+import { useRouter } from 'expo-router';
+import { Image, Pressable, StyleSheet, Text, View } from 'react-native';
 
 export default function IndexRoute() {
   const router = useRouter();
 
 return (
     <View style={styles.container}>
+      
       <Image
         source={require('../assets/images/logo.png')}
         style={styles.logo}
@@ -41,6 +42,18 @@ return (
     </Text>
     </Pressable>
     </LinearGradient>
+
+    <Pressable
+      onPress={() => router.push({ pathname: '/healthUnits', params: { riskDegree: 'EMERGENCY' } })}
+      style={({ pressed }) => ([
+        styles.testButton,
+        { transform: [{ scale: pressed ? 0.96 : 1 }] },
+      ])}
+    >
+      <Text style={styles.testButtonText}>
+        Ver unidades de emergencia (teste)
+      </Text>
+    </Pressable>
 
       <View style={styles.doctorContainer}>
   
@@ -97,6 +110,24 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontFamily: 'Roboto',
     fontWeight: 'bold',
+  },
+
+  testButton: {
+    borderWidth: 1,
+    borderColor: '#082841',
+    borderRadius: 40,
+    paddingVertical: 12,
+    paddingHorizontal: 20,
+    alignSelf: 'center',
+    marginBottom: 24,
+    backgroundColor: '#fff',
+  },
+
+  testButtonText: {
+    color: '#082841',
+    fontSize: 16,
+    fontFamily: 'Roboto',
+    fontWeight: '700',
   },
   
   doctorContainer: {
