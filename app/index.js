@@ -121,6 +121,7 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     marginBottom: 24,
     backgroundColor: '#fff',
+    display: 'none',
   },
 
   testButtonText: {
