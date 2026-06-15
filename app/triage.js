@@ -1,25 +1,26 @@
 import { LinearGradient } from 'expo-linear-gradient';
 import { useRouter } from 'expo-router';
 import { useEffect, useRef, useState } from 'react';
-import { ActivityIndicator, Pressable, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { ActivityIndicator, Image, Pressable, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import triageService from '../src/services/triageService';
-import { Image } from 'react-native';
 
 export default function TriageRoute() {
+    const LONGEST_PATH = 28; 
+
     const router = useRouter();
     const [currentNode, setCurrentNode] = useState(null);
     const [showPhase3PreChoice, setShowPhase3PreChoice] = useState(false);
     const [riskDegree, setRiskDegree] = useState(null);
     const [isLoading, setIsLoading] = useState(true);
-    const [questionCounter, setQuestionCounter] = useState(0);
+    const [progressQuestionCounter, setProgressQuestionCounter] = useState(0);
     const phase = useRef(null);
 
     async function start() {
-        setQuestionCounter(0);
         setIsLoading(true);
         try {
             setCurrentNode(await triageService.startPhase1());
             phase.current = 1;
+            setProgressQuestionCounter(0);
         } finally {
             setIsLoading(false);
         }
@@ -35,11 +36,12 @@ export default function TriageRoute() {
 
         const nextNode = await triageService.nextNode(phase.current, currentNode, answer);
         if (nextNode.node) {
-            setQuestionCounter(prev => prev + 1);
+            setProgressQuestionCounter(prev => prev + 1);
             setCurrentNode(nextNode.node);
         } else if (nextNode.riskDegree) {
             setRiskDegree(nextNode.riskDegree);
         } else if (phase.current === 1) {
+            setProgressQuestionCounter(prev => prev + 1);
             setCurrentNode(await triageService.startPhase2());
             phase.current = 2;
         } else if (phase.current === 2) {
@@ -52,7 +54,7 @@ export default function TriageRoute() {
     }
 
     async function handlePhase3PreChoice(ageGroup) {
-        setQuestionCounter(prev => prev + 1);
+        setProgressQuestionCounter(prev => prev + 1);
         setCurrentNode(await triageService.startPhase3(ageGroup));
         setShowPhase3PreChoice(false);
     }
@@ -61,7 +63,7 @@ export default function TriageRoute() {
     setRiskDegree(null);
     setCurrentNode(null);
     setShowPhase3PreChoice(false);
-    setQuestionCounter(0);
+    setProgressQuestionCounter(0);
     phase.current = 1;
     start();
     }
@@ -77,6 +79,8 @@ export default function TriageRoute() {
             : showPhase3PreChoice
                 ? 'Qual a faixa etária do paciente?'
                 : 'Triagem completa!';
+
+    const continuousProgress = Math.min(progressQuestionCounter / LONGEST_PATH, 1);
 
         if (riskDegree === 'EMERGENCY') {
         return (
@@ -492,16 +496,23 @@ export default function TriageRoute() {
                 style={styles.card}
             >
 
-                <LinearGradient
-                    colors={['#082841', '#0860A6']}
-                    start={{ x: 0, y: 0 }}
-                    end={{ x: 1, y: 1 }}
-                    style={styles.stepBadge}
-                >
-                    <Text style={styles.stepText}>
-                        {phase.current || 1}
-                    </Text>
-                </LinearGradient>
+                <View style={styles.progressSection}>
+                    <View style={styles.relativeProgressTrack}>
+                        <View
+                            style={[
+                                styles.relativeProgressFill,
+                                { width: `${Math.max(continuousProgress * 100, 0)}%` },
+                            ]}
+                        />
+                    </View>
+
+                    {currentNode && (
+                        <Text style={styles.questionCounterText}>
+                            {Math.round(continuousProgress * 100)}%
+                        </Text>
+                    )}
+                </View>
+
                 <Text style={styles.question}>
                     {statusText}
                 </Text>
@@ -767,18 +778,29 @@ const styles = StyleSheet.create({
         elevation: 8,
     },
 
-    stepBadge: {
-        width: 32,
-        height: 32,
-        borderRadius: 5,
-        alignItems: 'center',
-        justifyContent: 'center',
+    progressSection: {
         marginBottom: 18,
     },
 
-    stepText: {
-        color: '#fff',
-        fontWeight: 'bold',
+    relativeProgressTrack: {
+        width: '100%',
+        height: 10,
+        borderRadius: 999,
+        backgroundColor: '#D7DEE4',
+        overflow: 'hidden',
+    },
+
+    relativeProgressFill: {
+        height: '100%',
+        borderRadius: 999,
+        backgroundColor: '#0860A6',
+    },
+
+    questionCounterText: {
+        marginTop: 8,
+        color: '#5C6E7F',
+        fontSize: 13,
+        fontWeight: '600',
     },
 
     question: {
