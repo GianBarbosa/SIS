@@ -498,13 +498,16 @@ export default function TriageRoute() {
 
                 <View style={styles.progressSection}>
                     <View style={styles.relativeProgressTrack}>
-                        <View
+                        <LinearGradient
+                            colors={['#0860A6', '#082841']} 
+                            start={{ x: 0, y: 0 }}
+                            end={{ x: 1, y: 0 }}
                             style={[
                                 styles.relativeProgressFill,
                                 { width: `${Math.max(continuousProgress * 100, 0)}%` },
                             ]}
                         />
-                    </View>
+                </View>
 
                     {currentNode && (
                         <Text style={styles.questionCounterText}>
