@@ -51,7 +51,7 @@ return (
       ])}
     >
       <Text style={styles.testButtonText}>
-        Ver unidades de emergencia (teste)
+        Ver unidades de emergencia
       </Text>
     </Pressable>
 
@@ -101,7 +101,7 @@ const styles = StyleSheet.create({
     borderRadius: 40,
     alignItems: 'center',
     width: 220,
-    marginBottom: 50,
+    marginBottom: 5,
     alignSelf: 'center',
   },
 
@@ -113,15 +113,10 @@ const styles = StyleSheet.create({
   },
 
   testButton: {
-    borderWidth: 1,
-    borderColor: '#082841',
-    borderRadius: 40,
     paddingVertical: 12,
     paddingHorizontal: 20,
     alignSelf: 'center',
     marginBottom: 24,
-    backgroundColor: '#fff',
-    display: 'none',
   },
 
   testButtonText: {

@@ -57,6 +57,15 @@ export default function TriageRoute() {
         setShowPhase3PreChoice(false);
     }
 
+    function restartTriage() {
+    setRiskDegree(null);
+    setCurrentNode(null);
+    setShowPhase3PreChoice(false);
+    setQuestionCounter(0);
+    phase.current = 1;
+    start();
+    }
+
     useEffect(() => {
         start();
     }, []);
@@ -140,7 +149,16 @@ export default function TriageRoute() {
                         {" "}mais próxima.
                     </Text>
 
-                    <TouchableOpacity activeOpacity={0.9}>
+                    <TouchableOpacity 
+                         activeOpacity={0.9}
+                         onPress={() =>
+                            router.push({
+                                pathname: '/healthUnits',
+                                params: {
+                                    riskDegree: 'EMERGENCY',
+                                },
+                            })
+                    }>
 
                         <LinearGradient
                             colors={['#410808', '#A60808']}
@@ -158,7 +176,7 @@ export default function TriageRoute() {
                     </TouchableOpacity>
 
                     <TouchableOpacity
-                        onPress={start}
+                        onPress={restartTriage}
                         activeOpacity={0.9}
                     >
 
@@ -250,7 +268,17 @@ export default function TriageRoute() {
                             {" "}para uma avaliação mais detalhada.
                         </Text>
 
-                        <TouchableOpacity activeOpacity={0.9}>
+                        <TouchableOpacity
+                            activeOpacity={0.9}
+                            onPress={() =>
+                                router.push({
+                                    pathname: '/healthUnits',
+                                    params: {
+                                        riskDegree: 'MODERATE',
+                                    },
+                                })
+                            }
+                        >                        
 
                             <LinearGradient
                                 colors={['#414108', '#A1A608']}
@@ -268,7 +296,7 @@ export default function TriageRoute() {
                         </TouchableOpacity>
 
                         <TouchableOpacity
-                            onPress={start}
+                            onPress={restartTriage}
                             activeOpacity={0.9}
                         >
 
@@ -360,7 +388,17 @@ export default function TriageRoute() {
 
                         </Text>
 
-                        <TouchableOpacity activeOpacity={0.9}>
+                        <TouchableOpacity
+                            activeOpacity={0.9}
+                            onPress={() =>
+                                router.push({
+                                    pathname: '/lowGuidance',
+                                    params: {
+                                        riskDegree: 'LOW',
+                                    },
+                                })
+                            }
+                        >      
 
                             <LinearGradient
                                 colors={['#08410A', '#15A608']}
@@ -378,7 +416,7 @@ export default function TriageRoute() {
                         </TouchableOpacity>
 
                         <TouchableOpacity
-                            onPress={start}
+                            onPress={restartTriage}
                             activeOpacity={0.9}
                         >
 
