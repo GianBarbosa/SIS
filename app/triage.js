@@ -719,7 +719,7 @@ const styles = StyleSheet.create({
         flex: 1,
         backgroundColor: '#F3F3F3',
         paddingHorizontal: 30,
-        paddingTop: 50,
+        paddingTop: 20,
     },
 
     topContainer: {
@@ -869,7 +869,7 @@ const styles = StyleSheet.create({
 
     emergencyContainer: {
         flex: 1,
-        paddingTop: 50,
+        paddingTop: 20,
     },
 
     emergencyTopContainer: {
@@ -945,7 +945,7 @@ const styles = StyleSheet.create({
     
     moderateContainer: {
         flex: 1,
-        paddingTop: 50,
+        paddingTop: 20,
     },
 
     moderateTopContainer: {
@@ -1020,7 +1020,7 @@ const styles = StyleSheet.create({
 
     lowContainer: {
         flex: 1,
-        paddingTop: 50,
+        paddingTop: 20,
     },
 
     lowTopContainer: {

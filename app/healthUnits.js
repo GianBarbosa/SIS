@@ -305,7 +305,7 @@ closeText: {
 container: {
     flex: 1,
     paddingHorizontal: 24,
-    paddingTop: 40,
+    paddingTop: 20,
     backgroundColor: '#F3F3F3',
 },
 
