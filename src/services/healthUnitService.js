@@ -15,6 +15,17 @@ async function getHealthUnits() {
     });
 }
 
+async function getHealthUnitsByType(type) {
+    const healthUnits = await healthUnitRepo.getHealthUnitsByType(type);
+
+    return healthUnits.map(async healthUnit => {
+        return {
+            ...healthUnit,
+            embedUrl: await getIframeEmbedUrl(healthUnit)
+        };
+    });
+}
+
 async function getHealthUnitsByRiskDegree(riskDegree) {
     let healthUnits;
     switch ((riskDegree || '').toUpperCase()) {
@@ -44,4 +55,4 @@ async function getIframeEmbedUrl(healthUnit) {
     return `https://www.google.com/maps?q=${encodedAddress}&output=embed`;
 }
 
-export default { getHealthUnits, getHealthUnitsByRiskDegree }
+export default { getHealthUnits, getHealthUnitsByRiskDegree, getHealthUnitsByType }

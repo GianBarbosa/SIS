@@ -44,14 +44,14 @@ return (
     </LinearGradient>
 
     <Pressable
-      onPress={() => router.push({ pathname: '/healthUnits', params: { riskDegree: 'EMERGENCY' } })}
+      onPress={() => router.push({ pathname: '/healthUnits' })}
       style={({ pressed }) => ([
         styles.testButton,
         { transform: [{ scale: pressed ? 0.96 : 1 }] },
       ])}
     >
       <Text style={styles.testButtonText}>
-        Ver unidades de emergencia
+        Ver unidades próximas
       </Text>
     </Pressable>
 

@@ -1,6 +1,6 @@
 import { useLocalSearchParams } from 'expo-router';
 import { useEffect, useState } from 'react';
-import { ActivityIndicator, Platform, StyleSheet, Text, View, TouchableOpacity } from 'react-native';
+import { ActivityIndicator, Platform, ScrollView, StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 import healthUnitService from '../src/services/healthUnitService';
 import { LinearGradient } from 'expo-linear-gradient';
 import { useRouter } from 'expo-router';
@@ -46,12 +46,33 @@ export default function HealthUnitsRoute() {
     const { riskDegree } = useLocalSearchParams();
     const selectedRiskDegree = Array.isArray(riskDegree) ? riskDegree[0] : riskDegree;
 
+    const riskDegreeToTypeMap = {
+        EMERGENCY: 'URGENT_CARE',
+        MODERATE: 'PRIMARY_CARE',
+        LOW: 'PRIMARY_CARE',
+    };
+
+    const [selectedType, setSelectedType] = useState(
+        selectedRiskDegree ? (riskDegreeToTypeMap[selectedRiskDegree] || 'PRIMARY_CARE') : ''
+    );
+
+    const typeOptions = [
+        { label: 'Todas', value: '' },
+        { label: 'Emergencia', value: 'URGENT_CARE' },
+        { label: 'Atencao basica', value: 'PRIMARY_CARE' },
+    ];
+
+    const typeTitleMap = {
+        URGENT_CARE: 'Unidades de emergencia proximas',
+        PRIMARY_CARE: 'Unidades basicas proximas',
+        ACUTE_CARE: 'Unidades de cuidados agudos proximas',
+        SPECIALTY_CARE: 'Unidades especializadas proximas',
+    };
+
     const screenTitle =
-    selectedRiskDegree === 'EMERGENCY'
-        ? 'Unidades de emergência próximas'
-        : selectedRiskDegree === 'MODERATE'
-            ? 'Unidades básicas próximas'
-            : 'Unidades de saúde próximas';
+        selectedType
+            ? (typeTitleMap[selectedType] || 'Unidades de saude proximas')
+            : 'Unidades de saude proximas';
 
 
     const [healthUnits, setHealthUnits] = useState([]);
@@ -63,8 +84,8 @@ export default function HealthUnitsRoute() {
         async function loadHealthUnits() {
             setIsLoading(true);
             try {
-                const units = selectedRiskDegree
-                    ? await healthUnitService.getHealthUnitsByRiskDegree(selectedRiskDegree)
+                const units = selectedType
+                    ? await healthUnitService.getHealthUnitsByType(selectedType)
                     : await healthUnitService.getHealthUnits();
                 const resolvedUnits = await Promise.all(units ?? []);
                 if (!isCancelled) {
@@ -82,7 +103,7 @@ export default function HealthUnitsRoute() {
         return () => {
             isCancelled = true;
         };
-    }, [selectedRiskDegree]);
+    }, [selectedType]);
 
     function renderMap(unit) {
         if (Platform.OS === 'web') {
@@ -115,7 +136,11 @@ export default function HealthUnitsRoute() {
 
 
     return (
-        <View style={styles.container}>
+        <ScrollView
+            style={styles.container}
+            contentContainerStyle={styles.scrollContent}
+            showsVerticalScrollIndicator={false}
+        >
 
             <TouchableOpacity onPress={() => router.back()}>
             <LinearGradient
@@ -146,6 +171,36 @@ export default function HealthUnitsRoute() {
                 {screenTitle}
             </Text>
 
+            <ScrollView
+                horizontal
+                showsHorizontalScrollIndicator={false}
+                contentContainerStyle={styles.filterRow}
+            >
+                {typeOptions.map(option => {
+                    const isSelected = selectedType === option.value;
+
+                    return (
+                        <TouchableOpacity
+                            key={option.value || 'ALL'}
+                            onPress={() => setSelectedType(option.value)}
+                            style={[
+                                styles.filterChip,
+                                isSelected ? styles.filterChipSelected : null,
+                            ]}
+                        >
+                            <Text
+                                style={[
+                                    styles.filterChipText,
+                                    isSelected ? styles.filterChipTextSelected : null,
+                                ]}
+                            >
+                                {option.label}
+                            </Text>
+                        </TouchableOpacity>
+                    );
+                })}
+            </ScrollView>
+
             {isLoading && (
                 <View style={styles.feedbackContainer}>
                     <ActivityIndicator size="small" color="#082841" />
@@ -155,8 +210,8 @@ export default function HealthUnitsRoute() {
             {!isLoading && healthUnits.length === 0 && (
                 <View style={styles.feedbackContainer}>
                     <Text style={styles.feedbackText}>
-                        {selectedRiskDegree
-                            ? 'Nenhuma unidade encontrada para este grau de risco.'
+                        {selectedType
+                            ? 'Nenhuma unidade encontrada para este tipo.'
                             : 'Nenhuma unidade de saúde cadastrada.'}
                     </Text>
                 </View>
@@ -202,7 +257,7 @@ export default function HealthUnitsRoute() {
                 </LinearGradient>
             ))}
 
-        </View>
+        </ScrollView>
     );
 }
 
@@ -251,15 +306,48 @@ closeText: {
 container: {
     flex: 1,
     paddingHorizontal: 24,
-    paddingTop: 50,
+    paddingTop: 40,
     backgroundColor: '#F3F3F3',
+},
+
+scrollContent: {
+    paddingBottom: 24,
 },
 
 screenTitle: {
     fontSize: 28,
     fontWeight: 'bold',
     color: '#082841',
-    marginBottom: 24,
+    marginBottom: 16,
+},
+
+filterRow: {
+    paddingBottom: 16,
+    gap: 8,
+},
+
+filterChip: {
+    paddingVertical: 8,
+    paddingHorizontal: 12,
+    borderRadius: 20,
+    borderWidth: 1,
+    borderColor: '#D0D7DE',
+    backgroundColor: '#FFFFFF',
+},
+
+filterChipSelected: {
+    backgroundColor: '#082841',
+    borderColor: '#082841',
+},
+
+filterChipText: {
+    color: '#082841',
+    fontSize: 13,
+    fontWeight: '600',
+},
+
+filterChipTextSelected: {
+    color: '#FFFFFF',
 },
 
 unitCard: {
