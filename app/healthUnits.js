@@ -1,9 +1,8 @@
-import { useLocalSearchParams } from 'expo-router';
-import { useEffect, useState } from 'react';
-import { ActivityIndicator, Platform, ScrollView, StyleSheet, Text, View, TouchableOpacity } from 'react-native';
-import healthUnitService from '../src/services/healthUnitService';
 import { LinearGradient } from 'expo-linear-gradient';
-import { useRouter } from 'expo-router';
+import { useLocalSearchParams, useRouter } from 'expo-router';
+import { useEffect, useState } from 'react';
+import { ActivityIndicator, Platform, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import healthUnitService from '../src/services/healthUnitService';
 
 const NativeWebView = Platform.OS === 'web' ? null : require('react-native-webview').WebView;
 
@@ -58,21 +57,21 @@ export default function HealthUnitsRoute() {
 
     const typeOptions = [
         { label: 'Todas', value: '' },
-        { label: 'Emergencia', value: 'URGENT_CARE' },
-        { label: 'Atencao basica', value: 'PRIMARY_CARE' },
+        { label: 'Emergência', value: 'URGENT_CARE' },
+        { label: 'Atenção básica', value: 'PRIMARY_CARE' },
     ];
 
     const typeTitleMap = {
-        URGENT_CARE: 'Unidades de emergencia proximas',
-        PRIMARY_CARE: 'Unidades basicas proximas',
-        ACUTE_CARE: 'Unidades de cuidados agudos proximas',
-        SPECIALTY_CARE: 'Unidades especializadas proximas',
+        URGENT_CARE: 'Unidades de emergência próximas',
+        PRIMARY_CARE: 'Unidades básicas próximas',
+        ACUTE_CARE: 'Unidades de cuidados agudos próximas',
+        SPECIALTY_CARE: 'Unidades especializadas próximas',
     };
 
     const screenTitle =
         selectedType
-            ? (typeTitleMap[selectedType] || 'Unidades de saude proximas')
-            : 'Unidades de saude proximas';
+            ? (typeTitleMap[selectedType] || 'Unidades de saúde próximas')
+            : 'Unidades de saúde próximas';
 
 
     const [healthUnits, setHealthUnits] = useState([]);
